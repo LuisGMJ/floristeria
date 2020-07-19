@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "floreria-53bd3": {
+      "hosting": {
+        "floreria": [
+          "floreria-53bd3"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<div class="container">
+    <div *ngFor="let product of productsData" class="card">
+        <div *ngIf="productsData" class="imgBox">
+            <img [src]="product.image" [alt]="product.title">
+            <div class="img-label text-white font-weight-bold d-flex align-items-center justify-content-center text-center">
+                <div class="title-img">{{product.title}}</div>
+            </div>
+        </div>
+        <div class="details d-flex h-100">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-12">
+                    <h5 class="text-center">{{product.title}}</h5>
+                </div>
+                <div class="col-12">
+                    <p class="text-center font-weight-bold">{{product.price | currency}}</p>
+                </div>
+                <div class="col-12 text-center">
+                    <button type="button" (click)="showDetails(product.id)" class="btn btn-warning">Detalles</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

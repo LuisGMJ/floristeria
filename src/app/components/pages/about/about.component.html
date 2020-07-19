@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <div class="card mb-4">
+        <h3 class="card-header text-center bg-success text-white">¿Quienes somos?</h3>
+        <div class="card-body">
+            <div>
+                <p class="card-text">{{aboutUs}}</p>
+            </div>
+        </div>
+        <h3 class="card-header text-center bg-success text-white">Misión</h3>
+        <div class="card-body">
+            <div>
+                <p class="card-text">
+                    Ofrecer los mejores arreglos con la mejor calidad, mejorando diariamente nuestros controles de calidad.
+                </p>
+                <u>
+                    <li *ngFor="let value of missions">{{value}}</li>
+                </u>
+            </div>
+        </div>
+        <h3 class="card-header text-center bg-success text-white">Valores</h3>
+        <div class="card-body">
+            <div>
+                <p class="card-text">
+                    Nuestros principales valores son:
+                </p>
+                <table>
+                    <tr *ngFor="let value of ethicalValues">
+                        <td scope="row">{{value.name}}</td>
+                        <td>{{value.description}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+<div class="container border mt-4 mb-4">
+    <app-flip-book *ngIf="productsData" [productsData]="productsData"></app-flip-book>
+    <app-loading *ngIf="!productsData"></app-loading>
+</div>

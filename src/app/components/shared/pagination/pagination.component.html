@@ -1,0 +1,6 @@
+<!-- Pagination -->
+
+<div class="row justify-content-between align-items-center">
+    <button class="btn btn-info ml-4 mb-4" (click)="prevPage()" [disabled]="disablePrev || !(paginationClickedCount>0)">Anterior</button> <b class="mb-4 font-italic">Pagina: {{paginationClickedCount+1}}</b>
+    <button class="btn btn-info mr-4 mb-4" (click)="nextPage()" [disabled]="disableNext">Siguiente</button>
+</div>

@@ -1,0 +1,9 @@
+<div *ngIf="carouselData">
+
+    <carousel [isAnimated]="true">
+        <slide *ngFor="let slide of carouselData['image']; let i=index">
+            <img [src]="slide" alt="first slide">
+        </slide>
+    </carousel>
+    <h4 class="text-uppercase text-center mt-2">{{carouselData['title']}}</h4>
+</div>

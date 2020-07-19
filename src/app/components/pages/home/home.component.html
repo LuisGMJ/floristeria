@@ -1,0 +1,17 @@
+<app-carousel [carouselData]="carouselData"></app-carousel>
+<h5 class="text-center gray">
+    {{titleflipbook}}
+</h5>
+
+<hr>
+<div class="container border">
+    <app-flip-book *ngIf="paginationService.data" [productsData]="paginationService.data"></app-flip-book>
+    <!-- Pagination -->
+    <app-pagination [collectionName]="collectionName" [noElements]="noElements" [orderBy]="orderBy"></app-pagination>
+
+    <app-loading *ngIf="!paginationService.data"></app-loading>
+</div>
+
+<div class="container">
+    <app-maps></app-maps>
+</div>

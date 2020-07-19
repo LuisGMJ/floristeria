@@ -1,0 +1,50 @@
+<!-- Footer -->
+<footer *ngIf="data" class="footer color-vino">
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+        <!-- Grid row -->
+        <div class="row">
+            <!-- Grid column -->
+            <div class="col-md-3 mx-auto">
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Dirección</h5>
+                <p>{{data.address}}</p>
+            </div>
+            <!-- Grid column -->
+            <hr class="clearfix w-100 d-md-none">
+            <!-- Grid column -->
+            <div class="col-md-3 mx-auto">
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Horario</h5>
+                <p *ngFor="let schedule of data.schedule">{{schedule}}</p>
+            </div>
+            <!-- Grid column -->
+            <hr class="clearfix w-100 d-md-none">
+            <!-- Grid column -->
+            <div class="col-md-3 mx-auto">
+                <!-- Links -->
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Contáctanos</h5>
+                <p *ngFor="let phone of data.telephonenumbers">
+                    <i class="fas fa-phone-square"></i> Tel: {{phone}}
+                </p>
+                <p *ngFor="let email of data.email">
+                    <i class="fas fa-at"></i><a [href]="'mailto:' + email"> {{email}}</a>
+                </p>
+                <h5 class="text-white mt-1">Siguenos en:</h5>
+                <span>
+                <i class="fab fa-facebook-square"></i><a [href]="data.socialnetworks['facebook']" target="_blank"> Facebook: Floristería "La Plazuela"</a></span>
+            </div>
+            <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="text-center py-3 text-white mr-auto ml-auto" id="copyright">
+        &copy; {{year}} Todos los derechos reservados: {{data.pagetitle}}
+    </div>
+    <!-- Copyright -->
+
+</footer>
+<!-- Footer -->

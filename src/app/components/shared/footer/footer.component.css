@@ -1,0 +1,21 @@
+p,
+a,
+span {
+    color: goldenrod !important;
+}
+
+hr {
+    background-color: goldenrod !important;
+}
+
+h5 {
+    color: white !important;
+}
+
+.color-vino {
+    background-color: rgb(97, 5, 36) !important;
+}
+
+#copyright {
+    background-color: rgb(68, 3, 25);
+}

@@ -1,0 +1,44 @@
+<div class="container-fluid color-vino">
+    <div class="row">
+        <div class="col d-none d-lg-block"></div>
+        <div class="col text-center">
+            <a [routerLink]="['inicio']" id="logo" class="font-italic">
+                <img src="assets/img/logo2.png" height="170" alt="logo"><br>Estudio Floral "Vicente Sosa"
+            </a>
+        </div>
+        <div *ngIf="data" class="col align-self-center mt-1 text-white align-content-lg-center font-weight-bold" style="font-size: smaller;">
+            <p>
+                Telefonos:
+            </p>
+            <p *ngFor="let phone of data.telephonenumbers" style="margin-top: -10px;"><i class="fas fa-phone-square"></i> Tel: {{phone}}</p>
+            <p>
+                Correo electronico: {{data.email}}</p>
+        </div>
+    </div>
+</div>
+<nav *ngIf="data" class="navbar navbar-expand-lg navbar-dark color-vino">
+    <a class="navbar-brand text-center active" [routerLink]="['inicio']">
+        {{data.pagetitle}}</a>
+    <button class="navbar-toggler border" type="button" (click)="isCollapsed = !isCollapsed" data-toggle="collapse" [attr.aria-expanded]="!isCollapsed" aria-controls="collapse" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon bg"></span>
+    </button>
+
+    <div class="collapse navbar-collapse text-center" id="collapse" [collapse]="isCollapsed">
+        <ul class="navbar-nav ml-3">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['inicio']" routerLinkActive="active"><i class="fas fa-home"></i> Inicio</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a (click)="reasonsIsCollapsed = !reasonsIsCollapsed" [attr.aria-expanded]="!reasonsIsCollapsed" class="nav-link dropdown-toggle btn" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true">
+                  Motivo
+                </a>
+                <div id="collapseBasic" [collapse]="reasonsIsCollapsed" [isAnimated]="true" class="dropdown-menu color-vino dropdown-menu-border" aria-labelledby="navbarDropdownMenuLink">
+                    <a *ngFor="let reason of reasons; let i=index" (click)="reasonsIsCollapsed = !reasonsIsCollapsed" class="dropdown-item" [routerLink]="['productos/', reason['url-name']]">{{reason['name']}}</a>
+                </div>
+            </li>
+            <li class="nav-item" style="vertical-align: baseline;">
+                <a class="nav-link" [routerLink]="['nosotros']" routerLinkActive="active">Nosotros</a>
+            </li>
+        </ul>
+    </div>
+</nav>

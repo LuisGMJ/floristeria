@@ -1,0 +1,7 @@
+div .card .delete {
+    visibility: collapse;
+}
+
+div .card:hover .delete {
+    visibility: visible;
+}

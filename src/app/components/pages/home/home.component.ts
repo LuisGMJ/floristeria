@@ -12,12 +12,12 @@ export class HomeComponent implements OnInit {
   titleflipbook = 'Arreglos destacados';
 
   carouselData = {};
-  productsData: any;
 
   // Pagination
   collectionName = 'arrangement';
   noElements = 5;
   orderBy = 'views';
+
 
   constructor(private carouselService: CarouselService,
               public paginationService: PaginationService) {}

@@ -1,0 +1,119 @@
+<div class="container mt-3 mb-3">
+    <div class="card border-primary container-sm">
+        <form class="mt-3" [formGroup]="productForm" (ngSubmit)="guardar()">
+            <ng-container *ngIf="isNewForm; else elseTitle">
+                <h3 class="mt-3">Nuevo Producto</h3>
+            </ng-container>
+            <ng-template #elseTitle>
+                <h3 class="mt-3">Producto: {{productForm.value.title}}</h3>
+            </ng-template>
+
+            <hr>
+
+            <div class="form-group row">
+                <div class="col">
+                    <input type="text" formControlName="title" class="form-control" id="title" placeholder="Titulo" [class.is-invalid]="invalidTitle">
+                    <div *ngIf="invalidTitle">
+                        <small *ngIf="productForm.controls.title.errors.required" class="text-danger">Campo requerido</small>
+                        <small *ngIf="productForm.controls.title.errors.maxlength" class="text-danger">Número de caracteres excedido</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <textarea name="description" class="form-control" formControlName="description" id="description" placeholder="Descripción" cols="30" rows="5" [class.is-invalid]="invalidDescription"></textarea>
+                    <div *ngIf="invalidDescription">
+                        <small *ngIf="productForm.controls.description.errors.required" class="text-danger">Campo requerido</small>
+                        <small *ngIf="productForm.controls.description.errors.maxlength" class="text-danger">Número de caracteres excedido</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <p class="alert-info text-justify">Nota: Para agregar una imagen se pude subir una nueva imagen o seleccionar una de las existentes en la Galería.</p>
+                    <tabset type="pills" [justified]="true">
+                        <tab heading="Subir imagen" class="text-center">
+                            <app-upload-image (imageUpload)="addImageToForm($event)" [imageName]="productForm.value.title"></app-upload-image>
+                        </tab>
+                        <tab heading="Seleccionar de la Galería">
+                            <div class="text-center">
+                                <app-gallery-modal (imageUrl)="addImageToForm($event)"></app-gallery-modal>
+                            </div>
+                        </tab>
+                    </tabset>
+                    <div *ngIf="productForm.value.image" class="text-center">
+                        <img [src]="productForm.value.image" alt="Floristería La Plazuela" style="height: 10rem; width: auto;" class="img-thumbnail">
+                    </div>
+
+                    <div *ngIf="invalidImage">
+                        <small *ngIf="productForm.controls.image.errors.required" class="text-danger">Imagen requerida</small>
+                        <small *ngIf="productForm.controls.image.errors.maxlength" class="text-danger">Número de caracteres excedido</small>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <table class="table table-striped table-inverse">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Componente</th>
+                                <th>Borrar</th>
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="maincomponents">
+                            <tr *ngFor="let control of maincomponents.controls; let i = index">
+                                <td>
+                                    <input type="text" [formControlName]="i" class="form-control" id="maincomponents" placeholder="Componentes" [class.is-invalid]="control.invalid && control.touched">
+                                    <small *ngIf="control.invalid && control.touched" class="text-danger">Campo requerido</small>
+                                </td>
+                                <td>
+                                    <button (click)="deleteComponent(i)" type="button" class="btn btn-danger">Borrar</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" (click)="addComponent()" class="btn btn-primary btn-block">+ Agregar componentes</button>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <input type="text" formControlName="price" class="form-control" id="price" placeholder="Precio" [class.is-invalid]="invalidPrice">
+
+                    <div *ngIf="invalidPrice">
+                        <small *ngIf="productForm.controls.price.errors.required" class="text-danger">Imagen requerida</small>
+                        <small *ngIf="productForm.controls.price.errors.maxlength" class="text-danger">Número de caracteres excedido</small>
+                        <small *ngIf="productForm.controls.price.errors.min" class="text-danger">La cantidad minima es de {{1 |currency}}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <input type="text" formControlName="size" class="form-control" id="size" placeholder="Medidas" [class.is-invalid]="invalidSize">
+
+                    <div *ngIf="invalidSize">
+                        <small *ngIf="productForm.controls.size.errors.required" class="text-danger">Campo requerido</small>
+                        <small *ngIf="productForm.controls.size.errors.maxlength" class="text-danger">Número de caracteres excedido</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                    <select class="custom-select" formControlName="type" (change)="changeType($event)">
+                        <option value="" disabled>Seleccionar...</option>
+                        <option *ngFor="let type of types; let i = index;" [ngValue]="i.toString()">{{type.name}}</option>
+                      </select>
+
+                    <div *ngIf="invalidType">
+                        <small *ngIf="productForm.controls.type.errors.required" class="text-danger">Campo requerido</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mb-2">
+                <button type="submit" class="btn btn-outline-success">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -11,8 +11,10 @@
                 Telefonos:
             </p>
             <p *ngFor="let phone of data.telephonenumbers" style="margin-top: -10px;"><i class="fas fa-phone-square"></i> Tel: {{phone}}</p>
-            <p>
-                Correo electronico: {{data.email}}</p>
+            Correo electronico:
+            <div style="font-size: .7rem;">
+                {{data.email}}
+            </div>
         </div>
     </div>
 </div>
@@ -33,7 +35,7 @@
                   Motivo
                 </a>
                 <div id="collapseBasic" [collapse]="reasonsIsCollapsed" [isAnimated]="true" class="dropdown-menu color-vino dropdown-menu-border" aria-labelledby="navbarDropdownMenuLink">
-                    <a *ngFor="let reason of reasons; let i=index" (click)="reasonsIsCollapsed = !reasonsIsCollapsed" class="dropdown-item" [routerLink]="['productos/', reason['url-name']]">{{reason['name']}}</a>
+                    <a *ngFor="let type of types; let i=index" (click)="reasonsIsCollapsed = !reasonsIsCollapsed" class="dropdown-item" [routerLink]="['productos/', type['url-name']]">{{type['name']}}</a>
                 </div>
             </li>
             <li class="nav-item" style="vertical-align: baseline;">

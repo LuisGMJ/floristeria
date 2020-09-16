@@ -4,12 +4,11 @@
 </h5>
 
 <hr>
-<div class="container border">
+<div class="container-fluid border">
     <app-flip-book *ngIf="paginationService.data" [productsData]="paginationService.data"></app-flip-book>
-    <!-- Pagination -->
-    <app-pagination [collectionName]="collectionName" [noElements]="noElements" [orderBy]="orderBy"></app-pagination>
 
-    <app-loading *ngIf="!paginationService.data"></app-loading>
+    <!-- Pagination -->
+    <app-pagination [hidden]="!paginationService.data" [collectionName]="collectionName" [noElements]="noElements" [orderBy]="orderBy"></app-pagination>
 </div>
 
 <div class="container">

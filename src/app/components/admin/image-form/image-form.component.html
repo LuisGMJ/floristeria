@@ -1,0 +1,19 @@
+<a [routerLink]="['/admin/galeria']"><i class="fas fa-arrow-left"></i> Volver</a>
+
+<form class="card bg-light mt-2 mb-2" [formGroup]="imageForm" (ngSubmit)="save()">
+
+    <div class="container mt-2 mb-2">
+        <h3>Actualizar información</h3>
+
+        <hr>
+
+        <div class="text-center">
+            <img [src]="imageUrl | noImage" class="card-img-top btn" style="height: 20rem; width: auto;" [alt]="imageName">
+        </div>
+
+        <input type="text" formControlName="name" class="form-control" name="name" id="name">
+
+        <button type="submit" class="btn btn-outline-success btn-lg btn-block mt-2">Actualizar</button>
+    </div>
+
+</form>

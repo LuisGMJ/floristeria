@@ -1,0 +1,20 @@
+#father {
+    position: relative;
+    display: inline-block;
+}
+
+#check-icon {
+    position: absolute;
+    bottom: 1rem;
+    /* posicionada en la esquina inferior derecha */
+    left: 1rem;
+}
+
+.card-background {
+    background-color: rgb(97, 5, 36);
+    border-color: rgb(0, 137, 173);
+}
+
+.card-btn:hover {
+    border: solid .2rem rgb(236, 202, 11);
+}

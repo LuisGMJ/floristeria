@@ -1,3 +1,15 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/admin', 'productos']" routerLinkActive="active">Productos</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/admin', 'galeria']" routerLinkActive="active">Galería</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/admin', 'nuevo']" routerLinkActive="active">Nuevo producto</a>
+    </li>
+</ul>
+
 <div class="container">
-    <h1>Admin</h1>
+    <router-outlet></router-outlet>
 </div>

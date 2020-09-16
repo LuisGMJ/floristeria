@@ -1,0 +1,31 @@
+<div *ngIf="paginationService.data" class="card-columns">
+    <div *ngFor="let image of paginationService.data" class="col mb-4">
+        <div class="card">
+            <div class="text-right delete">
+                <div class="btn" (click)="openModal(template, image)">
+                    <i class="fas fa-window-close fa-lg text-danger"></i>
+                </div>
+            </div>
+            <img [src]="image.url | noImage" class="card-img-top btn" [alt]="image.name" (click)="updateImage(image.id)">
+            <div class="card-body">
+                <h5 class="card-title">{{image.name}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pagination -->
+<app-pagination *ngIf="showPagination" [hidden]="!paginationService.data" [collectionName]="collectionName" [noElements]="noElements" [orderBy]="orderBy"></app-pagination>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">¿Seguro que desea eliminar la imagen <strong>{{selectedImage.name}}</strong>?</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <button type="button" (click)="deleteImage(); modalRef.hide()" class="btn btn-block btn-danger">Eliminar</button>
+        <button type="button" (click)="modalRef.hide()" class="btn btn-block btn-default">Cancelar</button>
+    </div>
+</ng-template>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PaginationService } from '../../../services/pagination.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pagination',
@@ -30,10 +31,11 @@ export class PaginationComponent implements OnInit {
 
   // se necesitarán dos botones para cargar los datos siguientes o los datos anteriores
   // deshabilita los botones siguiente y anterior
-  disableNext: boolean = false;
-  disablePrev: boolean = true;
+  disableNext = false;
+  disablePrev = true;
 
-  constructor(private paginationService: PaginationService) {
+  constructor(private paginationService: PaginationService,
+              private toastr: ToastrService) {
   }
   
   ngOnInit(): void {
@@ -81,7 +83,9 @@ export class PaginationComponent implements OnInit {
 
   // remove non required document 
   popPrevStartAt(prevFirstDoc) {
+    console.log(prevFirstDoc);
     this.prevStartAt.forEach(element => {
+      console.log('---', element);
       if (prevFirstDoc.payload.doc.data().id == element.payload.doc.data().id) {
         element = null;
       }
@@ -97,17 +101,18 @@ export class PaginationComponent implements OnInit {
   }
 
   nextPage() {
-    this.scrollTop();
 
-    this.paginationService.data = [];
     this.disableNext = true;
     this.paginationService.getNextPage(this.lastInResponse.payload.doc)
       .subscribe(response => {
         if (!response.length) {
-          console.log('No More Data Available');
+          this.toastr.info('No hay más datos disponibles');
           this.disableNext = true;
           return;
         }
+
+
+        this.paginationService.data = [];
         this.firstInResponse = response[0];
         this.lastInResponse = response[response.length - 1];
         this.tableData = [];
@@ -117,9 +122,9 @@ export class PaginationComponent implements OnInit {
         }
         this.paginationClickedCount++;
         this.pushPrevStartAt(this.firstInResponse);
-        if (response.length < 5) {
-          // disable next button if data fetched is less than 5 - means no more data left to load
-          // because limit ti get data is set to 5
+        if (response.length < this.noElements) {
+          // disable next button if data fetched is less than noElements - means no more data left to load
+          // because limit ti get data is set to noElements
           this.disableNext = true;
         } else {
           this.disableNext = false;
@@ -131,7 +136,6 @@ export class PaginationComponent implements OnInit {
   }
 
   prevPage() {
-    this.scrollTop();
 
     this.disablePrev = true;
     this.paginationService.getPrevPage(this.getPrevStartAt().payload.doc, this.firstInResponse.payload.doc)

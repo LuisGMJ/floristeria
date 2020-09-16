@@ -1,0 +1,42 @@
+<div class="row col-12">
+
+    <table class="table table-hover border mt-3">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Precio</th>
+                <th scope="col" class="text-center">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of paginationService.data">
+                <th scope="row">{{product.title}}</th>
+                <td><img [src]="product.image" (click)="editProduct(product.id)" style="width: 6rem; height: auto;" class="img-thumbnail btn" [alt]="product.title"></td>
+                <td>{{product.price | currency}}</td>
+                <td class="text-center">
+                    <button (click)="openModal(template, product)" type="button" class="btn btn-danger rounded-circle">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Pagination -->
+<app-pagination [hidden]="!paginationService.data" [collectionName]="collectionName" [noElements]="noElements" [orderBy]="orderBy"></app-pagination>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">¿Seguro que desea eliminar el elemento <strong>{{product.title}}</strong>?</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <button type="button" (click)="deleteProduct(product.id)" class="btn btn-danger">Eliminar</button>
+        <button type="button" (click)="modalRef.hide()" class="btn btn-default">Cancelar</button>
+    </div>
+</ng-template>

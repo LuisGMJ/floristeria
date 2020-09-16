@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { title } from 'process';
+import { PaginationService } from '../../../services/pagination.service';
+import { ProductsService } from '../../../services/products.service';
+import { Product } from '../../../models/product.model';
 
 @Component({
   selector: 'app-flip-book',
@@ -12,12 +14,16 @@ export class FlipBookComponent implements OnInit {
   @Input() productsData = {};
   path = 'assets/img/default.jpg';
 
-  constructor(private router: Router) { }
+  constructor(private productsService: ProductsService,
+              private router: Router) { }
 
   ngOnInit(): void { }
 
-  showDetails(id: string) {
-    this.router.navigate(['detalles/', id]);
+  showDetails(product: Product) {
+    this.router.navigate(['detalles/', product.id]);
+
+    const views = product.views + 1;
+    this.productsService.updateViews(product.id, views);
   }
 
 }

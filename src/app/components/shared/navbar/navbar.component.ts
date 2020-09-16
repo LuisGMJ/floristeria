@@ -15,15 +15,13 @@ export class NavbarComponent implements OnInit {
 
   data: GeneralData;
 
-  reasons = [
-    'Aniversario', 'Boda', 'Cumpleaños', 'Funerarios', 'Día de las madres'
-  ];
+  types = [];
 
   constructor(private dataService: GeneralDataService,
               private productsService: ProductsService) { }
 
   ngOnInit(): void {
-    this.productsService.getProductTypeList().subscribe(list => this.reasons = list.type);
+    this.productsService.getProductTypeList().subscribe(list => this.types = list.type);
     if (localStorage.getItem('generalData')) {
       this.data = this.dataService.readLocalData();
     } else {

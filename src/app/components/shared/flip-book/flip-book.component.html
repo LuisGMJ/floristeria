@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container animate__animated animate__fadeInRight">
     <div *ngFor="let product of productsData" class="card">
         <div *ngIf="productsData" class="imgBox">
             <img [src]="product.image" [alt]="product.title">
@@ -6,7 +6,7 @@
                 <div class="title-img">{{product.title}}</div>
             </div>
         </div>
-        <div class="details d-flex h-100">
+        <div *ngIf="productsData" class="details d-flex h-100">
             <div class="row justify-content-center align-items-center">
                 <div class="col-12">
                     <h5 class="text-center">{{product.title}}</h5>
@@ -15,9 +15,10 @@
                     <p class="text-center font-weight-bold">{{product.price | currency}}</p>
                 </div>
                 <div class="col-12 text-center">
-                    <button type="button" (click)="showDetails(product.id)" class="btn btn-warning">Detalles</button>
+                    <button type="button" (click)="showDetails(product)" class="btn btn-warning">Detalles</button>
                 </div>
             </div>
         </div>
     </div>
+    <app-loading *ngIf="!productsData"></app-loading>
 </div>

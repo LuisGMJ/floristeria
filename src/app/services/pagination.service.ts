@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable, BehaviorSubject } from 'rxjs';
 import { scan, tap, take, map } from 'rxjs/operators';
 import { QueryConfig } from '../models/query-config.model';
+import { FilterModel } from '../models/filter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class PaginationService {
   private collectionName: string;
   private noElements: number;
   private orderBy: string;
+  private filterBy: FilterModel;
 
 
 
@@ -34,16 +36,26 @@ export class PaginationService {
   constructor(private db: AngularFirestore) { }
 
   // Obtaining data by sections for pagination
-  getData(collectionName: string, noElements: number, order: string): Observable<any> {
+  getData(collectionName: string, noElements: number, order: string, filterBy?: FilterModel): Observable<any> {
 
     this.noElements = noElements;
     this.orderBy = order;
     this.collectionName = collectionName;
+    this.filterBy = filterBy;
 
-    return this.db.collection(collectionName, ref => ref
-      .limit(noElements)
-      .orderBy(order, 'desc')
-    ).snapshotChanges();
+    if (filterBy) {
+      return this.db.collection(collectionName, ref => ref
+        .where(filterBy.type, '==', filterBy.value)
+        .limit(noElements)
+        .orderBy(order, 'desc')
+      ).snapshotChanges();
+    } else {
+      return this.db.collection(collectionName, ref => ref
+        .limit(noElements)
+        .orderBy(order, 'desc')
+      ).snapshotChanges();
+    }
+
   }
 
   getNextPage(lastInResponse: any) {

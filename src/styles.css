@@ -1,26 +1,23 @@
-/* Scrollbar styles */
-
-
-/* The emerging W3C standard
-   that is currently Firefox-only */
-
-* {
-    scrollbar-width: thin;
-    scrollbar-color: rgb(97, 5, 36) gray;
-}
-
-
-/* Works on Chrome/Edge/Safari */
-
-*::-webkit-scrollbar {
-    width: .6rem;
-}
-
-*::-webkit-scrollbar-track {
-    background: gray;
-}
-
-*::-webkit-scrollbar-thumb {
+.bg-vino {
     background-color: rgb(97, 5, 36);
-    border: 1px solid white;
+}
+
+.card-title {
+    color: rgb(74, 148, 168);
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-icon {
+    color: black;
+    background-color: white;
+    opacity: .5;
 }

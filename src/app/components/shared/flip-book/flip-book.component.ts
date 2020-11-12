@@ -12,7 +12,6 @@ import { Product } from '../../../models/product.model';
 export class FlipBookComponent implements OnInit {
 
   @Input() productsData = {};
-  path = 'assets/img/default.jpg';
 
   constructor(private productsService: ProductsService,
               private router: Router) { }
@@ -20,7 +19,7 @@ export class FlipBookComponent implements OnInit {
   ngOnInit(): void { }
 
   showDetails(product: Product) {
-    this.router.navigate(['detalles/', product.id]);
+    this.router.navigate(['producto', product.id, 'detalles']);
 
     const views = product.views + 1;
     this.productsService.updateViews(product.id, views);

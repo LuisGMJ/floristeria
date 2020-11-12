@@ -2,11 +2,11 @@ import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ProductsService } from '../../../services/products.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { ImageService } from '../../../services/image.service';
 import { ActivatedRoute } from '@angular/router';
 import { PaginationService } from '../../../services/pagination.service';
 import { ToastrService } from 'ngx-toastr';
+import { Product } from '../../../models/product.model';
 
 @Component({
   selector: 'app-product-form',
@@ -23,10 +23,14 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
   types = [];
 
+  product: Product;
+
   private cargarComponentes = true;
 
   // modal
   modalRef: BsModalRef;
+
+  showUploadImage = false;
 
   constructor(private modalService: BsModalService,
               private toastr: ToastrService,
@@ -40,7 +44,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
     this.createForm();
   }
 
-  
+
   ngOnInit(): void {
     this.productsService.getProductTypeList().subscribe(list => this.types = list.type);
 
@@ -53,6 +57,7 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       this.isNewForm = false;
       this.loadProduct(params.id);
     });
+
   }
 
   ngOnDestroy(): void {
@@ -92,20 +97,22 @@ export class ProductFormComponent implements OnInit, OnDestroy {
       id: [''],
       title: ['', [Validators.required, Validators.maxLength(200)]],
       description: ['', [Validators.required, Validators.maxLength(600)]],
-      image: [{ value: '', disabled: false }, [Validators.required, Validators.maxLength(200)]],
+      image: [{ value: '', disabled: false }, [Validators.required, Validators.maxLength(400)]],
       maincomponents: this.fb.array([]),
       price: [0, [Validators.required, Validators.min(1), Validators.maxLength(7)]],
-      size: ['', [Validators.required], , Validators.maxLength(100)],
-      type: ['', [Validators.required, Validators.maxLength(2)]],
+      size: ['', [Validators.required, Validators.maxLength(100)]],
+      type: ['', [Validators.required]],
       views: [0]
     });
   }
 
-  addImageToForm(imageName: string) {
-    if (!imageName) {
+  addImageToForm(imageUrl: string) {
+    if (!imageUrl) {
       return;
     }
-    this.productForm.get('image').setValue(imageName);
+
+    console.log(imageUrl);
+    this.productForm.get('image').setValue(imageUrl);
   }
 
   addComponent() {
@@ -138,21 +145,23 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
   loadProduct(id: string) {
     return this.productsService.getProduct(id).subscribe(data => {
-      const product = data[0];
+      this.product = data[0];
 
-      this.productForm.get('title').setValue(product.title);
-      this.productForm.get('description').setValue(product.description);
-      this.productForm.get('id').setValue(product.id);
-      this.productForm.get('image').setValue(product.image);
-      this.productForm.get('price').setValue(product.price);
-      this.productForm.get('size').setValue(product.size);
-      this.productForm.get('type').setValue(product.type);
-      this.productForm.get('views').setValue(product.views);
+      this.productForm.get('title').setValue(this.product.title);
+      this.productForm.get('description').setValue(this.product.description);
+      this.productForm.get('id').setValue(this.product.id);
+      this.productForm.get('image').setValue(this.product.image);
+      this.productForm.get('price').setValue(this.product.price);
+      this.productForm.get('size').setValue(this.product.size);
+      this.productForm.get('type').setValue(this.product.type);
+      this.productForm.get('views').setValue(this.product.views);
 
-      if (product.maincomponents && this.cargarComponentes) {
+      if (this.product.maincomponents && this.cargarComponentes) {
         // Por cada componente en el arreglo maincomponents agrego un FormBuilder control con su valor
-        product.maincomponents.map((component: string) => this.maincomponents.push(this.fb.control(component, Validators.required)));
+        this.product.maincomponents.map((component: string) => this.maincomponents.push(this.fb.control(component, Validators.required)));
       }
+
+      this.showUploadImage = true;
     }, (error) => {
       this.toastr.error('Error inesperado al cargar los componentes principales  ');
       console.error(error);
@@ -161,6 +170,8 @@ export class ProductFormComponent implements OnInit, OnDestroy {
 
   guardar() {
     this.cargarComponentes = false;
+
+    console.log(this.productForm);
 
     if (!this.productForm.valid) {
       this.productForm.markAllAsTouched();

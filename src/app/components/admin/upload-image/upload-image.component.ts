@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ImageService } from '../../../services/image.service';
 import { ToastrService } from 'ngx-toastr';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-upload-image',
@@ -16,38 +18,46 @@ export class UploadImageComponent implements OnInit {
 
   private allowedFiles = ['image/jpeg', 'image/png'];
 
-  @Input() imageName: string;
+  @Input() image: Observable<string>;
 
   @Output() imageUpload: EventEmitter<any>;
-  
+
   constructor(public imageService: ImageService,
               private toastr: ToastrService,
-              private storage: AngularFireStorage ) {
+              private storage: AngularFireStorage)
+  {
     this.imageUpload = new EventEmitter();
   }
-  
+
+  public control = new FormControl([]);
+
   ngOnInit(): void {
+    console.log(this.control);
+    if (this.image) {
+      this.control.setValue([{preview: this.image}]);
+    } else {
+      this.control.reset();
+    }
   }
 
-  loadFile(event: any) {
-    this.file = event;
+  loadFile() {
+    console.log(this.control);
+    this.file = this.control.value[0].file;
   }
 
-  uploadFile(event) {
-    const file = event.target.files[0];
-
-    if (!this.allowedFiles.includes(file.type)) {
+  uploadFile() {
+    if (!this.allowedFiles.includes(this.file.type)) {
       this.toastr.error('Formato de archivo no válido');
       return;
     }
 
-    this.imageService.uploadFile(event, this.imageName).subscribe((path: string) => {
+    this.imageService.uploadFile(this.file, this.file.name).subscribe((path: string) => {
       this.storage.ref(path).getDownloadURL().subscribe(url => this.imageUrl = url);
     }, (err) => console.error('Error inesperado: ', err),
-    () => {
-      this.emiteUrl();
-      this.toastr.success('¡Imagen cargada correctamente!', 'Éxito');
-    });
+      () => {
+        this.emiteUrl();
+        this.toastr.success('¡Imagen cargada correctamente!', 'Éxito');
+      });
   }
 
   emiteUrl() {

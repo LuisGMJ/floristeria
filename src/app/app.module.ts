@@ -2,10 +2,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+
 import { ScrollingModule } from '@angular/cdk/scrolling';
+
+// angular-material
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+import {MatSelectModule} from '@angular/material/select';
 
 // Ngx-Toastr
 import { ToastrModule } from 'ngx-toastr';
+
+// Ngx-input-file
+import { InputFileConfig, InputFileModule } from 'ngx-input-file';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
@@ -33,10 +45,6 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
 import { MapsComponent } from './components/shared/maps/maps.component';
 import { ModalComponent } from './components/shared/modal/modal.component';
 import { PaginationComponent } from './components/shared/pagination/pagination.component';
-import { HomeComponent } from './components/pages/home/home.component';
-import { ProductsComponent } from './components/pages/products/products.component';
-import { DetailsComponent } from './components/pages/details/details.component';
-import { AboutComponent } from './components/pages/about/about.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { UploadImageComponent } from './components/admin/upload-image/upload-image.component';
 import { ProductFormComponent } from './components/admin/product-form/product-form.component';
@@ -49,6 +57,18 @@ import { SafeDomPipe } from './pipes/safe-dom.pipe';
 import { ScrollableDirective } from './directives/scrollable.directive';
 import { NoImagePipe } from './pipes/no-image.pipe';
 import { ImageFormComponent } from './components/admin/image-form/image-form.component';
+import { LoginComponent } from './components/pages/login/login.component';
+import { RegisterComponent } from './components/pages/register/register.component';
+import { HomeComponent } from './components/public/home/home.component';
+import { ProductsComponent } from './components/public/products/products.component';
+import { DetailsComponent } from './components/public/details/details.component';
+import { AboutComponent } from './components/public/about/about.component';
+import { PublicComponent } from './components/public/public.component';
+import { SidebarComponent } from './components/admin/shared/sidebar/sidebar.component';
+import { APP_BASE_HREF } from '@angular/common';
+import { ImageModalComponent } from './components/shared/image-modal/image-modal.component';
+
+const config: InputFileConfig = {};
 
 @NgModule({
   declarations: [
@@ -74,7 +94,12 @@ import { ImageFormComponent } from './components/admin/image-form/image-form.com
     GalleryModalComponent,
     ListProductsComponent,
     NoImagePipe,
-    ImageFormComponent
+    ImageFormComponent,
+    LoginComponent,
+    RegisterComponent,
+    PublicComponent,
+    SidebarComponent,
+    ImageModalComponent
   ],
   imports: [
     BrowserModule,
@@ -91,9 +116,17 @@ import { ImageFormComponent } from './components/admin/image-form/image-form.com
     ModalModule.forRoot(),
     ReactiveFormsModule,
     ScrollingModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    HttpClientModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
+    InputFileModule.forRoot(config),
+    MatSelectModule
   ],
-  providers: [],
+  providers: [
+    {provide: APP_BASE_HREF, useValue: '/'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,54 @@
+<div class="container mt-5 mb-3 animate__animated animate__fadeInRight">
+    <div class="col-md-8 mx-auto bg-vino text-white rounded">
+        <div class="text-center mb-3 mt-3">
+            <img src="assets/img/logo2.png" style="height: 9rem; width: auto;">
+        </div>
+        <h2 class="text-center"><strong>LOGIN</strong></h2>
+
+        <hr class="bg-white">
+
+        <form *ngIf="!loading" [formGroup]="userForm" (ngSubmit)="login()">
+            <div class="form-group row">
+                <div class="col">
+                    <input type="email" formControlName="email" name="email" id="email" class="form-control" placeholder="Email" [class.is-invalid]="invalidEmail">
+                    <div *ngIf="invalidEmail">
+                        <small *ngIf="userForm.controls.email.errors.required" class="text-light">* Campo requerido</small>
+                        <small *ngIf="userForm.controls.email.errors.email" class="text-light">* Formato no válido</small>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col">
+                    <input type="password" formControlName="password" name="password" id="password" class="form-control" placeholder="Password" [class.is-invalid]="invalidPassword">
+                    <div *ngIf="invalidPassword">
+                        <small *ngIf="userForm.controls.password.errors.required" class="text-light">* Campo requerido</small>
+                        <small *ngIf="userForm.controls.password.errors.minlength" class="text-light">* Se requiere al menos 6 caracteres</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <p *ngIf="showVerificationMessage === false">* Para poder iniciar sesión se requiere que primero valide su correo electrónico desde el enlace que le fue enviado</p>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <div class="form-group form-check">
+                        <input class="form-check-input" formControlName="remember" type="checkbox" id="defaultCheck1">
+                        <label class="form-check-label text-muted" for="defaultCheck1">
+                          Recordar mi usuario
+                        </label>
+                    </div>
+                </div>
+                <!-- <div class="col">
+                    <a routerLink="/register">¿No tienes cuenta?</a>
+                </div> -->
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block rounded-pill">Ingresar</button><br>
+        </form>
+        <app-loading *ngIf="loading"></app-loading>
+    </div>
+</div>

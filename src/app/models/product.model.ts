@@ -6,6 +6,6 @@ export class Product {
     price: number;
     size: string;
     title: string;
-    type: string;
+    type: string[];
     views: number;
 }

@@ -1,6 +1,14 @@
 <!-- Pagination -->
-
-<div class="row justify-content-between align-items-center">
-    <button class="btn btn-info ml-4 mb-4" (click)="prevPage()" [disabled]="disablePrev || !(paginationClickedCount>0)">Anterior</button> <b class="mb-4 font-italic">Pagina: {{paginationClickedCount+1}}</b>
-    <button class="btn btn-info mr-4 mb-4" (click)="nextPage()" [disabled]="disableNext">Siguiente</button>
+<div class="container mt-4 mb-3">
+    <div class="row align-items-center">
+        <div class="col-md-2 ml-md-auto mr-md-auto">
+            <button class="btn-sm btn-info" (click)="prevPage()" [disabled]="disablePrev || !(paginationClickedCount>0)">Anterior</button>
+        </div>
+        <div class="col-md-2 ml-md-auto mr-md-auto align-items-center">
+            <b class="font-italic">Pagina: {{paginationClickedCount+1}}</b>
+        </div>
+        <div class="col-md-2 ml-md-auto mr-md-auto">
+            <button class="btn-sm btn-info" (click)="nextPage()" [disabled]="disableNext">Siguiente</button>
+        </div>
+    </div>
 </div>

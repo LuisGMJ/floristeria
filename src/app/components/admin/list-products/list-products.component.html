@@ -1,4 +1,4 @@
-<div class="row col-12">
+<div class="row col-md-12">
 
     <table class="table table-hover border mt-3">
         <thead>
@@ -15,7 +15,7 @@
                 <td><img [src]="product.image" (click)="editProduct(product.id)" style="width: 6rem; height: auto;" class="img-thumbnail btn" [alt]="product.title"></td>
                 <td>{{product.price | currency}}</td>
                 <td class="text-center">
-                    <button (click)="openModal(template, product)" type="button" class="btn btn-danger rounded-circle">
+                    <button (click)="openModal(template, product)" type="button" class="btn-sm btn-danger rounded-circle">
                                 <i class="fa fa-trash"></i>
                             </button>
                 </td>

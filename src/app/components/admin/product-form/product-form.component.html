@@ -1,3 +1,13 @@
+<div class="mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="['/admin']" routerLinkActive="active">Admin</a></li>
+            <li *ngIf="product" class="breadcrumb-item" [routerLink]="['/admin/editar',  product.id]" routerLinkActive="active" aria-current="page">{{product.title}}</li>
+            <li *ngIf="!product" class="breadcrumb-item" [routerLink]="['/admin/nuevo']" routerLinkActive="active" aria-current="page">Nuevo</li>
+        </ol>
+    </nav>
+</div>
+
 <div class="container mt-3 mb-3">
     <div class="card border-primary container-sm">
         <form class="mt-3" [formGroup]="productForm" (ngSubmit)="guardar()">
@@ -33,17 +43,17 @@
                     <p class="alert-info text-justify">Nota: Para agregar una imagen se pude subir una nueva imagen o seleccionar una de las existentes en la Galería.</p>
                     <tabset type="pills" [justified]="true">
                         <tab heading="Subir imagen" class="text-center">
-                            <app-upload-image (imageUpload)="addImageToForm($event)" [imageName]="productForm.value.title"></app-upload-image>
+                            <app-upload-image *ngIf="showUploadImage || isNewForm" (imageUpload)="addImageToForm($event)" [image]="productForm?.value?.image"></app-upload-image>
                         </tab>
                         <tab heading="Seleccionar de la Galería">
                             <div class="text-center">
                                 <app-gallery-modal (imageUrl)="addImageToForm($event)"></app-gallery-modal>
                             </div>
+                            <div *ngIf="productForm.value.image" class="text-center">
+                                <img [src]="productForm.value.image" alt="Floristería La Plazuela" style="height: 10rem; width: auto;" class="img-thumbnail">
+                            </div>
                         </tab>
                     </tabset>
-                    <div *ngIf="productForm.value.image" class="text-center">
-                        <img [src]="productForm.value.image" alt="Floristería La Plazuela" style="height: 10rem; width: auto;" class="img-thumbnail">
-                    </div>
 
                     <div *ngIf="invalidImage">
                         <small *ngIf="productForm.controls.image.errors.required" class="text-danger">Imagen requerida</small>
@@ -99,10 +109,17 @@
             </div>
             <div class="form-group row">
                 <div class="col">
-                    <select class="custom-select" formControlName="type" (change)="changeType($event)">
-                        <option value="" disabled>Seleccionar...</option>
+                    <mat-form-field appearance="fill">
+                        <mat-select formControlName="type" multiple>
+                            <mat-option disabled="true">Seleccionar categoría...</mat-option>
+                            <mat-option *ngFor="let type of types; let i = index;" [value]="i.toString()">{{type.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <!-- <select class="custom-select" formControlName="type" (change)="changeType($event)" multiple>
+                        <option value="" disabled>Seleccionar categoría...</option>
                         <option *ngFor="let type of types; let i = index;" [ngValue]="i.toString()">{{type.name}}</option>
-                      </select>
+                      </select> -->
 
                     <div *ngIf="invalidType">
                         <small *ngIf="productForm.controls.type.errors.required" class="text-danger">Campo requerido</small>

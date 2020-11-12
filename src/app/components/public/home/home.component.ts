@@ -18,12 +18,25 @@ export class HomeComponent implements OnInit {
   noElements = 5;
   orderBy = 'views';
 
+  loading = false;
+
 
   constructor(private carouselService: CarouselService,
               public paginationService: PaginationService) {}
 
   ngOnInit(): void {
-    this.carouselService.getCarouselData().subscribe(data => this.carouselData = data);
+    this.getData();
+  }
+  
+  getData() {
+    this.loading = true;
+    this.carouselService.getCarouselData().subscribe(data => {
+      this.loading = false;
+      this.carouselData = data;
+    }, err => {
+      this.loading = false;
+      console.error('Error inesperado', err);
+    });
   }
 
 }

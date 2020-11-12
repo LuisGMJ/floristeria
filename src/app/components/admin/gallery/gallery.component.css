@@ -2,6 +2,10 @@ div .card .delete {
     visibility: collapse;
 }
 
+.border-card:hover {
+    border: solid rgb(236, 202, 114);
+}
+
 div .card:hover .delete {
     visibility: visible;
 }

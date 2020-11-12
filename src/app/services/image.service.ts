@@ -16,9 +16,8 @@ export class ImageService {
               private db: AngularFirestore,
               private toastr: ToastrService) { }
 
-  uploadFile(event, imageName: string) {
-    const file = event.target.files[0];
-    const filePath = `img/products/${event.target.files[0].name}`;
+  uploadFile(file, imageName: string) {
+    const filePath = `img/products/${file.name}`;
     const ref = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file, { customMetadata: {name: file.name}});
 

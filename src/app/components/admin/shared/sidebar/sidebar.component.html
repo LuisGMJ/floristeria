@@ -1,0 +1,37 @@
+<div class="material-container" [class.material-is-mobile]="mobileQuery.matches">
+    <mat-sidenav-container class="material-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+        <mat-sidenav class="sidenav" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+            <mat-nav-list>
+                <div class="text-center">
+                    <img class="logo" src="assets/img/logo2.png" height="100" alt="logo">
+                </div>
+                <hr>
+                <a class="nav-list" mat-list-item routerLink="/admin/productos" routerLinkActive="active">
+                    <span><i class="fas fa-home mr-2"></i>Inicio</span>
+                </a>
+                <a class="nav-list" mat-list-item routerLink="/admin/nuevo" routerLinkActive="active">
+                    <span><i class="fas fa-folder-plus mr-2"></i>Nuevo Producto</span>
+                </a>
+                <a class="nav-list" mat-list-item routerLink="/admin/register" routerLinkActive="active">
+                    <span><i class="fas fa-user-plus mr-2"></i>Agregar usuario</span>
+                </a>
+                <a class="nav-list" mat-list-item routerLink="/admin/galeria" routerLinkActive="active">
+                    <span><i class="fas fa-images mr-2"></i>Galería</span>
+                </a>
+                <a class="nav-list" mat-list-item (click)="logout()" routerLink="/login">
+                    <span><i class="fas fa-sign-out-alt mr-2"></i>Cerrar sesión</span>
+                </a>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <mat-toolbar class="material-toolbar">
+                <button class="bg-vino text-white border-0" mat-icon-button (click)="snav.toggle()"><i class="fas fa-bars"></i></button>
+                <h1 class="material-app-name">Floristería La Plazuela</h1>
+            </mat-toolbar>
+            <div class="container">
+                <router-outlet></router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

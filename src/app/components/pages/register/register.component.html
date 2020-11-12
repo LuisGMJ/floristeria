@@ -1,0 +1,58 @@
+<div class="container mt-5 mb-3 animate__animated animate__fadeInLeft">
+    <div class="col-md-8 mx-auto mt-3 mb-3 bg-vino text-white rounded">
+        <div class="text-center mb-3 mt-3">
+            <i class="fa fa-user-plus fa-4x mt-3" aria-hidden="true"></i>
+        </div>
+        <h3 class="text-center"><strong>NUEVA CUENTA</strong></h3>
+
+        <hr class="bg-white">
+
+        <form [formGroup]="userForm" (ngSubmit)="save()">
+            <div class="form-group row">
+                <div class="col">
+                    <input type="email" formControlName="email" name="email" id="email" class="form-control" placeholder="Email" [class.is-invalid]="invalidEmail">
+                    <div *ngIf="invalidEmail">
+                        <small *ngIf="userForm.controls.email.errors.required" class="text-danger">Campo requerido</small>
+                        <small *ngIf="userForm.controls.email.errors.email" class="text-danger">Formato no válido</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <input type="text" formControlName="name" name="name" id="name" class="form-control" placeholder="Nombre y apellidos" [class.is-invalid]="invalidName">
+                    <div *ngIf="invalidName">
+                        <small *ngIf="userForm.controls.name.errors.required" class="text-danger">Campo requerido</small>
+                        <small *ngIf="userForm.controls.name.errors.minlength" class="text-danger">Se requiere al menos 2 caracteres</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <input type="password" formControlName="password" name="password" id="password" class="form-control" placeholder="Password" [class.is-invalid]="invalidPassword">
+                    <div *ngIf="invalidPassword">
+                        <small *ngIf="userForm.controls.password.errors.required" class="text-danger">Campo requerido</small>
+                        <small *ngIf="userForm.controls.password.errors.minlength" class="text-danger">Se requiere al menos 6 caracteres</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="row mb-3">
+                <div class="col">
+                    <div class="form-group form-check">
+                        <input class="form-check-input" formControlName="remember" name="remember" type="checkbox" id="remember">
+                        <label class="form-check-label text-muted" for="defaultCheck1">
+                          Recordar mi usuario
+                        </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <a routerLink="/login">¿Ya tienes una cuenta? / Ingresar</a>
+                </div>
+            </div> -->
+
+            <button type="submit" class="btn btn-primary btn-block rounded-pill">Registrar</button><br>
+        </form>
+    </div>
+</div>

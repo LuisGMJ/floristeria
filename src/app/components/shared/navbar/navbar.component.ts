@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeneralData } from '../../../models/general-data.model';
 import { GeneralDataService } from '../../../services/general-data.service';
 import { ProductsService } from '../../../services/products.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -27,6 +28,7 @@ export class NavbarComponent implements OnInit {
     } else {
       this.getGeneralData();
     }
+
   }
 
   getGeneralData() {

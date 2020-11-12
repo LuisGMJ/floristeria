@@ -9,6 +9,8 @@
 
     <!-- Pagination -->
     <app-pagination [hidden]="!paginationService.data" [collectionName]="collectionName" [noElements]="noElements" [orderBy]="orderBy"></app-pagination>
+
+    <app-loading *ngIf="loading"></app-loading>
 </div>
 
 <div class="container">

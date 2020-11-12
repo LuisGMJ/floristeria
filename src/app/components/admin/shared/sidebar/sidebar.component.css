@@ -1,0 +1,58 @@
+.material-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.material-is-mobile .material-toolbar {
+    position: fixed;
+    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+    z-index: 2;
+}
+
+h1.material-app-name {
+    margin-right: 8px;
+}
+
+.material-sidenav-container {
+    /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+    flex: 1;
+}
+
+.material-is-mobile .material-sidenav-container {
+    /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+       `<body>` to be our scrolling element for mobile layouts. */
+    flex: 1 0 auto;
+}
+
+.material-toolbar {
+    background: rgb(97, 5, 36);
+    color: rgb(236, 202, 114);
+}
+
+.sidenav {
+    background: rgb(65, 3, 23);
+}
+
+.nav-list {
+    color: rgb(236, 202, 114);
+}
+
+.nav-list:hover {
+    color: rgb(243, 188, 49);
+    border: solid 1px rgb(236, 202, 114);
+}
+
+.active {
+    color: rgb(243, 188, 49);
+    border: solid 1px rgb(236, 202, 114);
+}
+
+.logo {
+    border-bottom: solid 1px rgb(243, 188, 49);
+}

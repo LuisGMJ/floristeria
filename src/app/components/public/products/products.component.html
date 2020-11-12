@@ -1,0 +1,8 @@
+<div class="container border mt-4 mb-4">
+    <app-flip-book *ngIf="paginationService.data" [productsData]="paginationService.data"></app-flip-book>
+
+    <!-- Pagination -->
+    <app-pagination *ngIf="filterBy" [hidden]="!paginationService.data" [filterBy]="filterBy" [collectionName]="collectionName" [noElements]="noElements" [orderBy]="orderBy"></app-pagination>
+
+    <app-loading *ngIf="loading"></app-loading>
+</div>

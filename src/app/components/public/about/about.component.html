@@ -1,23 +1,23 @@
 <div class="container mt-4">
     <div class="card mb-4">
-        <h3 class="card-header text-center bg-success text-white">¿Quienes somos?</h3>
+        <h3 class="card-header text-center text-white">¿Quienes somos?</h3>
         <div class="card-body">
             <div>
                 <p class="card-text">{{aboutUs}}</p>
             </div>
         </div>
-        <h3 class="card-header text-center bg-success text-white">Misión</h3>
+        <h3 class="card-header text-center text-white">Misión</h3>
         <div class="card-body">
             <div>
                 <p class="card-text">
                     Ofrecer los mejores arreglos con la mejor calidad, mejorando diariamente nuestros controles de calidad.
                 </p>
-                <u>
+                <ul>
                     <li *ngFor="let value of missions">{{value}}</li>
-                </u>
+                </ul>
             </div>
         </div>
-        <h3 class="card-header text-center bg-success text-white">Valores</h3>
+        <h3 class="card-header text-center text-white">Valores</h3>
         <div class="card-body">
             <div>
                 <p class="card-text">
@@ -26,7 +26,7 @@
                 <table>
                     <tr *ngFor="let value of ethicalValues">
                         <td scope="row">{{value.name}}</td>
-                        <td>{{value.description}}</td>
+                        <td class="text-justify">{{value.description}}</td>
                     </tr>
                 </table>
             </div>

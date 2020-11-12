@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PaginationService } from '../../../services/pagination.service';
 import { ToastrService } from 'ngx-toastr';
+import { FilterModel } from '../../../models/filter.model';
 
 @Component({
   selector: 'app-pagination',
@@ -12,6 +13,7 @@ export class PaginationComponent implements OnInit {
   @Input() collectionName: string;
   @Input() noElements: number;
   @Input() orderBy: string;
+  @Input() filterBy: FilterModel;
 
   // Pagination
   // tableData contendrá los elementos del documento que se obtienen de la colección
@@ -46,7 +48,7 @@ export class PaginationComponent implements OnInit {
 
   getItems() {
 
-    this.paginationService.getData(this.collectionName, this.noElements, this.orderBy).subscribe(response => {
+    this.paginationService.getData(this.collectionName, this.noElements, this.orderBy, this.filterBy).subscribe(response => {
       if (!response.length) {
         console.log('No Data Available');
         return false;

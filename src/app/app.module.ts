@@ -36,6 +36,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { NgxImageZoomModule } from 'ngx-image-zoom';
 
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { CarouselComponent } from './components/shared/carousel/carousel.component';
@@ -122,7 +123,8 @@ const config: InputFileConfig = {};
     MatToolbarModule,
     MatListModule,
     InputFileModule.forRoot(config),
-    MatSelectModule
+    MatSelectModule,
+    NgxImageZoomModule
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/'},

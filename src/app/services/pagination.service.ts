@@ -37,15 +37,15 @@ export class PaginationService {
 
   // Obtaining data by sections for pagination
   getData(collectionName: string, noElements: number, order: string, filterBy?: FilterModel): Observable<any> {
-
+    console.log('Coleccion: ' + collectionName + ' Num element: ' + noElements + ' orden: ' + order + ' filtro: ' + filterBy);
     this.noElements = noElements;
     this.orderBy = order;
     this.collectionName = collectionName;
     this.filterBy = filterBy;
-
+    
     if (filterBy) {
       return this.db.collection(collectionName, ref => ref
-        .where(filterBy.type, '==', filterBy.value)
+        .where(filterBy.type, 'array-contains', filterBy.value)
         .limit(noElements)
         .orderBy(order, 'desc')
       ).snapshotChanges();

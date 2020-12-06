@@ -34,6 +34,7 @@ export class ProductsComponent implements OnInit {
       this.loading = true;
 
       this.productsService.getProductTypeList().subscribe(list => {
+        console.log(list);
         let id;
 
         this.loading = false;

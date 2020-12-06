@@ -49,6 +49,8 @@ export class PaginationComponent implements OnInit {
   getItems() {
 
     this.paginationService.getData(this.collectionName, this.noElements, this.orderBy, this.filterBy).subscribe(response => {
+      console.log(response);
+      
       if (!response.length) {
         console.log('No Data Available');
         return false;
